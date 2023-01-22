@@ -1,0 +1,32 @@
+td {
+  border: 1px solid black;
+  width: 20%;
+}
+
+.row--env img {
+  width: 50px;
+}
+
+.row--env td {
+  position: relative;
+}
+
+.row--env td.bonus::after {
+  content: attr(data-bonus);
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: block;
+  background: white;
+  text-align: center;
+  font-size: 0.8rem;
+  line-height: 18px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+
+.row--env td.bonus:first-child:after {
+  content: '+'
+}
