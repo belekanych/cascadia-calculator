@@ -1,0 +1,13 @@
+version: "3.4"
+services:
+  cascadia-calculator:
+    container_name: cascadia-calculator
+    image: node:lts
+    working_dir: /var/www/html/app/
+    entrypoint: /bin/bash
+    ports:
+      - "8000:8000"
+      - "9005:9005"
+    volumes:
+      - ./:/var/www/html/app
+    tty: true
