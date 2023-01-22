@@ -55,6 +55,10 @@ function Board({ players, onCreate, onUpdate, onRemove }) {
     return e => onUpdate(player.id, 'score.natureTokens', parseScore(e))
   }
 
+  const getTabIndex = (a = 0, b = 0, c = 0) => {
+    return a * 100 + b * 10 + c
+  }
+
   return (
     <div className='bg-white'>
       <table className='w-full'>
@@ -63,7 +67,14 @@ function Board({ players, onCreate, onUpdate, onRemove }) {
           <tr>
             <td><FaUser /></td>
             {players.map((player, index) => (
-              <Cell key={index} value={player.name} type='text' onChange={updateName(player) }/>
+              <Cell
+                key={index}
+                value={player.name}
+                type='text'
+                autoFocus={true}
+                tabIndex={getTabIndex(index, 0, 1)}
+                onChange={updateName(player)
+              }/>
             ))}
             {emptyCols.length ? (
               <td>
@@ -79,8 +90,8 @@ function Board({ players, onCreate, onUpdate, onRemove }) {
             <BoardPlaceholder size={placeholders - 1} />
           </tr>
           {/* ANIMALS */}
-          {animals.map(animal => (
-            <tr key={animal}>
+          {animals.map((animal, animalIndex) => (
+            <tr key={animalIndex}>
               <td>
                 <img src={`${animal}.png`} width="50px" />
               </td>
@@ -89,6 +100,7 @@ function Board({ players, onCreate, onUpdate, onRemove }) {
                   key={index}
                   value={player.score.animals[animal]}
                   type='number'
+                  tabIndex={getTabIndex(index, 1, animalIndex)}
                   onChange={updateAnimalScore(player, animal)}
                 />
               ))}
@@ -103,8 +115,8 @@ function Board({ players, onCreate, onUpdate, onRemove }) {
             <BoardPlaceholder size={placeholders} />
           </tr>
           {/* HABITATS */}
-          {habitats.map(habitat => (
-            <tr key={habitat} className='row row--env'>
+          {habitats.map((habitat, habitatIndex) => (
+            <tr key={habitatIndex} className='row row--env'>
               <td className='bonus'>
                 <img src='/bear.png' />
               </td>
@@ -114,6 +126,7 @@ function Board({ players, onCreate, onUpdate, onRemove }) {
                   value={player.score.habitats[habitat]}
                   bonus={player.score.habitats.bonuses[habitat] || '-'}
                   type='number'
+                  tabIndex={getTabIndex(index, 2, habitatIndex)}
                   onChange={updateHabitatScore(player, habitat)}
                 />
               ))}
@@ -135,6 +148,7 @@ function Board({ players, onCreate, onUpdate, onRemove }) {
                 key={index}
                 value={getNatureTokensScore(player)}
                 type='number'
+                tabIndex={getTabIndex(index, 3)}
                 onChange={updateNatureTokensScore(player)}
               />
             ))}
@@ -156,6 +170,7 @@ function Board({ players, onCreate, onUpdate, onRemove }) {
                 <td key={index}>
                   <button
                     type='button'
+                    tabIndex={getTabIndex(index, 4)}
                     onClick={() => onRemove(player.id)}
                   >
                     <FaTimesCircle />
