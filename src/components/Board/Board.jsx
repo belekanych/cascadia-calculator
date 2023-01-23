@@ -60,7 +60,7 @@ function Board({ players, onCreate, onUpdate, onRemove }) {
   }
 
   return (
-    <div className='bg-white'>
+    <div className='bg-amber-900'>
       <table className='w-full'>
         <tbody>
           {/* PLAYERS */}

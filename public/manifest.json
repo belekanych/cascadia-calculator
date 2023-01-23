@@ -1,0 +1,63 @@
+{
+  "short_name": "Cascadia",
+  "name": "Cascadia - Calculator",
+  "icons": [
+    {
+      "src": "/icons-48.png",
+      "type": "image/png",
+      "sizes": "48x48",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons-72.png",
+      "type": "image/png",
+      "sizes": "72x72",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons-96.png",
+      "type": "image/png",
+      "sizes": "96x96",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons-128.png",
+      "type": "image/png",
+      "sizes": "128x128",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons.png",
+      "type": "image/png",
+      "sizes": "365x365",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons.png",
+      "type": "image/png",
+      "sizes": "365x365",
+      "purpose": "any"
+    }
+  ],
+  "id": "/?source=pwa",
+  "start_url": "/?source=pwa",
+  "background_color": "#3D82C1",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#3D82C1",
+  "description": "An app created to simplify scoring Cascadia board game.",
+  "screenshots": [
+    {
+      "src": "/screenshot1.png",
+      "type": "image/png",
+      "sizes": "992x1794",
+      "form_factor": "narrow"
+    }
+  ]
+}

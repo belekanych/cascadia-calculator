@@ -2,6 +2,7 @@ DC=docker-compose
 DC_EXEC=$(DC) exec
 FRONTEND=$(DC_EXEC) cascadia-calculator
 NPM=$(FRONTEND) npm run
+FIREBASE=$(FRONTEND) firebase
 
 start:
 	$(DC) up -d
@@ -23,3 +24,6 @@ start-dev:
 
 build:
 	$(NPM) build
+
+deploy:
+	$(FIREBASE) deploy
