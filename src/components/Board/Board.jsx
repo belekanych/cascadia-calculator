@@ -1,5 +1,5 @@
 import './Board.css'
-import { FaUser, FaPlusCircle, FaTimesCircle } from 'react-icons/fa'
+import { FaUser, FaPlusCircle, FaTimesCircle, FaCertificate, FaLeaf } from 'react-icons/fa'
 import BoardPlaceholder from '../BoardPlaceholder'
 import Cell from '../Cell'
 
@@ -60,12 +60,14 @@ function Board({ players, onCreate, onUpdate, onRemove }) {
   }
 
   return (
-    <div className='bg-amber-900'>
+    <div className='bg-amber-900 p-4 font-mono scale-90 w-full md:w-content max-w-lg'>
       <table className='w-full'>
-        <tbody>
+        <tbody className='bg-amber-50'>
           {/* PLAYERS */}
-          <tr>
-            <td><FaUser /></td>
+          <tr className='bg-amber-100 border-b-2 border-amber-900'>
+            <td className='border-r-2 border-amber-900 text-center py-3'>
+              <FaUser className='inline text-2xl text-amber-900'/>
+            </td>
             {players.map((player, index) => (
               <Cell
                 key={index}
@@ -77,10 +79,11 @@ function Board({ players, onCreate, onUpdate, onRemove }) {
               }/>
             ))}
             {emptyCols.length ? (
-              <td>
+              <td className='border-r-2 border-amber-600 text-center'>
                 <button
                   type='button'
                   tabIndex='-1'
+                  className='text-2xl mt-1 text-amber-900'
                   onClick={onCreate}
                 >
                   <FaPlusCircle />
@@ -91,9 +94,9 @@ function Board({ players, onCreate, onUpdate, onRemove }) {
           </tr>
           {/* ANIMALS */}
           {animals.map((animal, animalIndex) => (
-            <tr key={animalIndex}>
-              <td>
-                <img src={`${animal}.png`} width="50px" />
+            <tr key={animalIndex} className='row--animal border-b-2 border-amber-600'>
+              <td className='border-r-2 border-amber-900'>
+                <img src={`${animal}.png`} className='w-1/2 mx-auto bg-white rounded-full p-1'/>
               </td>
               {players.map((player, index) => (
                 <Cell
@@ -107,18 +110,22 @@ function Board({ players, onCreate, onUpdate, onRemove }) {
               <BoardPlaceholder size={placeholders} />
             </tr>
           ))}
-          <tr>
-            <td>W</td>
+          <tr className='bg-amber-100 border-b-8 border-amber-900'>
+            <td className='border-r-2 border-amber-900 text-center py-2'>
+                <span className='text-amber-900 font-bold text-2xl border-2 rounded-full border-amber-900 px-3'>W</span>
+            </td>
             {players.map((player, index) => (
-              <td key={index}>{getAnimalsScore(player)}</td>
+              <td key={index} className='border-r-2 border-amber-600 text-2xl text-center leading-10'>
+                {getAnimalsScore(player)}
+              </td>
             ))}
             <BoardPlaceholder size={placeholders} />
           </tr>
           {/* HABITATS */}
           {habitats.map((habitat, habitatIndex) => (
-            <tr key={habitatIndex} className='row row--env'>
-              <td className='bonus'>
-                <img src='/bear.png' />
+            <tr key={habitatIndex} className='row row--env border-b-2 border-amber-600'>
+              <td className='bonus border-r-2 border-amber-900'>
+                <img src={`${habitat}.png`} className='w-1/2 mx-auto bg-white rounded-full p-1'/>
               </td>
               {players.map((player, index) => (
                 <Cell
@@ -133,16 +140,22 @@ function Board({ players, onCreate, onUpdate, onRemove }) {
               <BoardPlaceholder size={placeholders} />
             </tr>
           ))}
-          <tr className="row row--env row--total">
-            <td>H</td>
+          <tr className="row row--env row--total bg-amber-100 border-b-8 border-amber-900">
+            <td className='border-r-2 border-amber-900 text-center py-2'>
+                <span className='text-amber-900 font-bold text-2xl border-2 rounded-full border-amber-900 px-3'>H</span>
+            </td>
             {players.map((player, index) => (
-              <td key={index}>{getHabitatsScore(player)}</td>
+              <td key={index} className='border-r-2 border-amber-600 text-2xl text-center leading-10'>
+                {getHabitatsScore(player)}
+              </td>
             ))}
             <BoardPlaceholder size={placeholders} />
           </tr>
           {/* NATURE TOKENS */}
-          <tr className="row row--token">
-            <td>T</td>
+          <tr className="row row--token border-b-8 border-amber-900">
+            <td className='border-r-2 border-amber-900 text-center py-3'>
+              <FaLeaf className='inline text-2xl text-green-900 mb-1'/>
+            </td>
             {players.map((player, index) => (
               <Cell
                 key={index}
@@ -155,31 +168,34 @@ function Board({ players, onCreate, onUpdate, onRemove }) {
             <BoardPlaceholder size={placeholders} />
           </tr>
           {/* TOTAL */}
-          <tr className="row row--sum">
-            <td>S</td>
+          <tr className="row row--sum bg-green-100 border-b-8 border-amber-900">
+            <td className='border-r-2 border-amber-900 text-center py-2'>
+              <FaCertificate className='inline text-4xl text-teal-700'/>
+            </td>
             {players.map((player, index) => (
-              <td key={index}>{getTotalScore(player)}</td>
+              <td key={index} className='border-r-2 border-amber-600 text-2xl text-center leading-10'>
+                {getTotalScore(player)}
+              </td>
             ))}
             <BoardPlaceholder size={placeholders} />
           </tr>
           {/* REMOVE PLAYER */}
-          {players.length ? (
-            <tr>
-              <td></td>
-              {players.map((player, index) => (
-                <td key={index}>
-                  <button
-                    type='button'
-                    tabIndex={getTabIndex(index, 4)}
-                    onClick={() => onRemove(player.id)}
-                  >
-                    <FaTimesCircle />
-                  </button>
-                </td>
-              ))}
-              <BoardPlaceholder size={placeholders} />
-            </tr>
-          ) : ''}
+          <tr>
+            <td className='border-r-2 border-amber-900 py-5'></td>
+            {players.map((player, index) => (
+              <td key={index} className='border-r-2 border-amber-600 text-center'>
+                <button
+                  type='button'
+                  className='text-2xl mt-2 text-amber-900'
+                  tabIndex={getTabIndex(index, 4)}
+                  onClick={() => onRemove(player.id)}
+                >
+                  <FaTimesCircle />
+                </button>
+              </td>
+            ))}
+            <BoardPlaceholder size={placeholders} />
+          </tr>
         </tbody>
       </table>
     </div>
