@@ -2,43 +2,15 @@ import { useState } from 'react'
 import './App.css'
 import Board from './components/Board'
 import Header from './components/Header'
-import { mapValues, set, sortBy, reverse, filter } from 'lodash'
-import { v4 as uuid } from 'uuid'
-
-const habitats = ['mountains', 'forests', 'prairies', 'wetlands', 'rivers']
+import { set } from 'lodash'
+import Player from './models/Player'
+import { calculateBonuses } from './services/score'
 
 function App() {
   const [players, setPlayers] = useState([])
 
   const createPlayer = () => {
-    setPlayers(players.concat([{
-      id: uuid(),
-      name: '',
-      score: {
-        animals: {
-          bear: '',
-          elk: '',
-          salmon: '',
-          hawk: '',
-          fox: '',
-        },
-        habitats: {
-          mountains: '',
-          forests: '',
-          prairies: '',
-          wetlands: '',
-          rivers: '',
-          bonuses: {
-            mountains: '',
-            forests: '',
-            prairies: '',
-            wetlands: '',
-            rivers: '',
-          },
-        },
-        natureTokens: '',
-      },
-    }]))
+    setPlayers(players.concat([new Player()]))
   }
 
   const updatePlayer = (id, path, value) => {
@@ -60,60 +32,13 @@ function App() {
   }
 
   const recalculateBonuses = () => {
-    let updatedPlayers = players
+    const bonuses = calculateBonuses(players)
 
-    habitats.forEach(habitat => {
-      const rating = reverse(sortBy(
-        filter(mapValues(players, `score.habitats.${habitat}`), value => value),
-        value => value
-      ))
+    setPlayers(players.map(player => {
+      player.score.bonuses = bonuses[player.id]
 
-      updatedPlayers = players.map(player => {
-        player.score.habitats.bonuses[habitat] = calculateBonus(
-          rating,
-          player.score.habitats[habitat],
-          players.length
-        )
-
-        return player
-      })
-    })
-
-    setPlayers(updatedPlayers)
-  }
-
-  const calculateBonus = (rating, playerScore, totalPlayers) => {
-    if (rating.length != totalPlayers) {
-      return 0
-    }
-
-    switch (totalPlayers) {
-      case 1:
-        return rating[0] >= 7 ? 2 : 0
-      case 2:
-        if (rating[0] === rating[1]) {
-          return 1
-        }
-        return rating[0] === playerScore ? 2 : 0
-      case 3:
-      case 4:
-        if (rating[0] === rating[1] && rating[1] === rating[2]) {
-          return rating[0] === playerScore ? 1 : 0
-        }
-        if (rating[0] === rating[1]) {
-          return rating[0] === playerScore ? 2 : 0
-        }
-        if (rating[0] === playerScore) {
-          return 3
-        }
-        if (rating[1] === rating[2]) {
-          return 0
-        }
-        if (rating[1] === playerScore) {
-          return 1
-        }
-        return 0
-    }
+      return player
+    }))
   }
 
   return (

@@ -2,16 +2,16 @@ td {
   width: 20%;
 }
 
-.row--animal img,
-.row--env img {
+.row--wildlife img,
+.row--habitat img {
   width: 50px;
 }
 
-.row--env td {
+.row--habitat td {
   position: relative;
 }
 
-.row--env td.bonus::after {
+.row--habitat td.bonus::after {
   content: attr(data-bonus);
   position: absolute;
   right: 2px;
@@ -27,6 +27,6 @@ td {
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
 }
 
-.row--env td.bonus:first-child:after {
+.row--habitat td.bonus:first-child:after {
   content: '+'
 }

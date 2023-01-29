@@ -1,5 +1,3 @@
-import './BoardPlaceholder.css'
-
 function BoardPlaceholder({ size }) {
   if (size <= 0) {
     return (<></>)
